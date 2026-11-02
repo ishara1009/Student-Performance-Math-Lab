@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "student-performance-math-lab"
+version = "0.1.0"
+description = "A beginner-friendly mathematics and statistics lab using synthetic student data"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = [
+  "numpy>=1.26,<3", "pandas>=2.1,<3", "scipy>=1.11,<2",
+  "matplotlib>=3.8,<4", "seaborn>=0.13,<1", "scikit-learn>=1.3,<2",
+  "streamlit>=1.31,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4,<10", "jupyter>=1,<2", "ruff>=0.4,<1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
