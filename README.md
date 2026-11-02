@@ -53,8 +53,30 @@ python -m ruff check .
 ```
 
 The analysis saves strict JSON/CSV files to `reports/results/` and PNG figures to
-`reports/figures/`. Actual measured dataset results will be recorded here only after the supplied
-CSV is available and the analysis has run; no result is fabricated.
+`reports/figures/`.
+
+## Measured results
+
+These values were measured by running `python scripts/run_analysis.py` on the supplied 500-row
+synthetic dataset. They describe this sample and do not establish real-world effects.
+
+- Mean final score: **63.82**; median: **63.00**; modes: **58 and 60**.
+- Final-score range: **13–100**; pass rate at the configured mark of 50: **84.6%**.
+- Attendance at least 80%: **40.2%**; empirical `P(Pass | Attendance >= 80%)`: **91.04%**.
+- Welch comparison (extra classes Yes minus No): mean difference **5.75**, 95% CI
+  **[3.33, 8.17]**, `t=4.665`, `df=497.29`, `p=3.97e-06`. At alpha 0.05 the analysis rejects
+  H0, but this association does not show that extra classes caused higher scores.
+
+Test-set model comparison (80/20 split, `random_state=42`):
+
+| Model | MAE | RMSE | R² |
+|---|---:|---:|---:|
+| NumPy gradient descent | 6.307 | 8.148 | 0.681 |
+| scikit-learn LinearRegression | 6.307 | 8.148 | 0.681 |
+| Training-mean baseline | 11.483 | 14.420 | -0.0004 |
+
+The matching NumPy and scikit-learn results are a useful correctness check; they are not a claim
+that this accuracy will transfer to real student populations.
 
 ## Suggested reading order
 
